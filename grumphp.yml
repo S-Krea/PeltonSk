@@ -1,4 +1,5 @@
 grumphp:
     ascii: ~
     tasks:
-        phpcsfixer2: null
+        phpcsfixer:
+            #config: .php-cs-fixer.dist.php

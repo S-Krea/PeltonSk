@@ -1,0 +1,4 @@
+grumphp:
+    ascii: ~
+    tasks:
+        phpcsfixer2: null

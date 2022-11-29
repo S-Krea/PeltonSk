@@ -3,6 +3,11 @@ api_platform:
   description: 'The internal Api for Padel app'
   version: 0.0.1
   show_webby: false
+  swagger:
+    api_keys:
+      JWT:
+        name: Authorization
+        type: header
   formats:
     json:
       mime_types: ['application/json']

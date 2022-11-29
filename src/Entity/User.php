@@ -4,9 +4,16 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[ORM\UniqueConstraint(fields: ['email'])]
+#[ORM\UniqueConstraint(fields: ['username'])]
+#[Assert\UniqueEntity(fields: 'email')]
+#[Assert\UniqueEntity(fields: 'username')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -106,5 +113,23 @@ class User
         $this->password = $password;
 
         return $this;
+    }
+
+    public function getRoles(): array
+    {
+        return [
+            'ROLE_USER',
+            'ROLE_API',
+        ];
+    }
+
+    public function eraseCredentials()
+    {
+        return;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
     }
 }

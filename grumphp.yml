@@ -2,4 +2,4 @@ grumphp:
     ascii: ~
     tasks:
         phpcsfixer:
-            #config: .php-cs-fixer.dist.php
+            config: .php-cs-fixer.dist.php

@@ -18,8 +18,8 @@ security:
         api:
             pattern: ^/api/
             stateless: true
-            jwt:
-                provider: api_users
+            provider: api_users
+            jwt: ~
 
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -27,8 +27,9 @@ security:
         main:
             lazy: true
     access_control:
+        - { path: ^/api/register, roles: PUBLIC_ACCESS }
         - { path: ^/api/docs, roles: PUBLIC_ACCESS }
-        - { path: ^/api, roles: ROLE_USER }
+        - { path: ^/api, roles: ROLE_API }
 
 when@test:
     security:

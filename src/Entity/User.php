@@ -123,13 +123,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         ];
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         return;
     }
 
     public function getUserIdentifier(): string
     {
-        return $this->email;
+        return $this->email ?? '';
     }
 }

@@ -4,6 +4,7 @@ namespace App\State\User\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
+use ApiPlatform\Symfony\Validator\Exception\ValidationException;
 use App\ApiResource\User\Profile;
 use App\ApiResource\User\RegisterRequest;
 use App\Entity\User;
@@ -37,7 +38,7 @@ class UserRegisterProcessor implements ProcessorInterface
 
         $errors = $this->validator->validate($user);
         if ($errors->count() > 0) {
-            throw new \InvalidArgumentException((string) $errors);
+            throw new ValidationException($errors);
         }
 
         $this->userRepository->save($user, true);

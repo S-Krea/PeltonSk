@@ -33,7 +33,7 @@ class JwtDecorator implements OpenApiFactoryInterface
         $schemas['Credentials'] = new \ArrayObject([
             'type' => 'object',
             'properties' => [
-                'email' => [
+                'username' => [
                     'type' => 'string',
                     'example' => 'user@domain.tld',
                 ],
@@ -55,7 +55,7 @@ class JwtDecorator implements OpenApiFactoryInterface
             ref: 'JWT Token',
             post: new OaModel\Operation(
                 operationId: 'postCredentialsItem',
-                tags: ['User'],
+                tags: ['Player'],
                 responses: [
                     '200' => [
                         'description' => 'Get JWT token',

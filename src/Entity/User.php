@@ -9,11 +9,10 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\InheritanceType('JOINED')]
 #[ORM\UniqueConstraint(fields: ['email'])]
-#[ORM\UniqueConstraint(fields: ['username'])]
 #[Assert\UniqueEntity(fields: 'email')]
-#[Assert\UniqueEntity(fields: 'username')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,19 +20,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $lastName = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $firstName = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $email = null;
-
-    #[ORM\Column(length: 25, nullable: true)]
-    private ?string $phoneNumber = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $username = null;
 
     #[ORM\Column(length: 255)]
     private ?string $password = null;
@@ -41,30 +28,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(string $lastName): self
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(string $firstName): self
-    {
-        $this->firstName = $firstName;
-
-        return $this;
     }
 
     public function getEmail(): ?string
@@ -75,30 +38,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    public function getPhoneNumber(): ?string
-    {
-        return $this->phoneNumber;
-    }
-
-    public function setPhoneNumber(?string $phoneNumber): self
-    {
-        $this->phoneNumber = $phoneNumber;
-
-        return $this;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
 
         return $this;
     }
@@ -119,13 +58,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return [
             'ROLE_USER',
-            'ROLE_API',
         ];
+    }
+
+    public function addRole($role, $roles)
+    {
+        if (!in_array($role, $roles)) {
+            $roles[] = $role;
+        }
+
+        return $roles;
     }
 
     public function eraseCredentials(): void
     {
-        return;
     }
 
     public function getUserIdentifier(): string

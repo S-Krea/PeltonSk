@@ -1,10 +1,11 @@
 <?php
 
-namespace App\State\User\Provider;
+namespace App\State\Player\Provider;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
-use App\ApiResource\User\Profile;
+use App\ApiResource\Player\Profile;
+use App\Entity\Player;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -17,12 +18,12 @@ class CurrentUserPofileProvider implements ProviderInterface
         $this->user = $security->getUser();
     }
 
-    public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
+    public function provide(Operation $operation, array $uriVariables = [], array $context = []): Profile|null
     {
-        if (!$this->user) {
+        if (!$this->user instanceof Player) {
             return null;
         }
 
-        return Profile::fromUser($this->user);
+        return Profile::fromPlayer($this->user);
     }
 }

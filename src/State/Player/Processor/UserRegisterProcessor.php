@@ -1,13 +1,13 @@
 <?php
 
-namespace App\State\User\Processor;
+namespace App\State\Player\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use ApiPlatform\Symfony\Validator\Exception\ValidationException;
-use App\ApiResource\User\Profile;
-use App\ApiResource\User\RegisterRequest;
-use App\Entity\User;
+use App\ApiResource\Player\Profile;
+use App\ApiResource\Player\RegisterRequest;
+use App\Entity\Player;
 use App\Repository\UserRepository;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -26,7 +26,7 @@ class UserRegisterProcessor implements ProcessorInterface
      */
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): Profile
     {
-        $user = new User();
+        $user = new Player();
 
         $hashedPassword = $this->hasher->hashPassword($user, $data->password);
 
@@ -43,11 +43,6 @@ class UserRegisterProcessor implements ProcessorInterface
 
         $this->userRepository->save($user, true);
 
-        return new Profile(
-            $user->getUsername(),
-            $user->getEmail(),
-            $user->getLastName(),
-            $user->getFirstName()
-        );
+        return Profile::fromPlayer($user);
     }
 }

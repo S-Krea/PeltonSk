@@ -1,0 +1,2 @@
+secured_password:
+  message: 'Le mot de passe doit comporter 8 caractères minimum dont 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial.'

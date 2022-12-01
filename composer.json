@@ -90,11 +90,11 @@
         "friendsofphp/php-cs-fixer": "^3.13",
         "phpro/grumphp": "^1.14",
         "psalm/plugin-symfony": "^4.0",
-        "symfony/debug-bundle": "6.1.*",
+        "symfony/debug-bundle": "6.2.*",
         "symfony/maker-bundle": "^1.48",
         "symfony/monolog-bundle": "^3.0",
-        "symfony/stopwatch": "6.1.*",
-        "symfony/web-profiler-bundle": "6.1.*",
+        "symfony/stopwatch": "6.2.*",
+        "symfony/web-profiler-bundle": "6.2.*",
         "vimeo/psalm": "^4.30",
         "weirdan/doctrine-psalm-plugin": "^2.5"
     }

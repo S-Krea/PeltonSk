@@ -48,11 +48,11 @@ jobs:
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-    #- name: Generate the SSL keys
-    #  run: bin/console lexik:jwt:generate-keypair
+    - name: Generate the SSL keys
+      run: bin/console lexik:jwt:generate-keypair
 
-    #- name: Psalm
-    #  run : ./vendor/bin/psalm
+    - name: Psalm
+      run : ./vendor/bin/psalm
 
     #- name: Create Database
     #  run: |

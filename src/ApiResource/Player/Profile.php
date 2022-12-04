@@ -3,15 +3,24 @@
 namespace App\ApiResource\Player;
 
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Put;
 use App\Entity\Player;
 use App\State\Player\Provider\CurrentUserPofileProvider;
 
 #[Get(
     uriTemplate: '/me',
-    provider: CurrentUserPofileProvider::class,
     openapiContext: [
         'tags' => ['Player'],
-    ]
+    ],
+    provider: CurrentUserPofileProvider::class
+)]
+#[Put(
+    uriTemplate: '/me',
+    openapiContext: [
+        'tags' => ['Player'],
+    ],
+    read: false,
+    processor: UpdateProfileProcessor::class
 )]
 class Profile
 {

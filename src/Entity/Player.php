@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PlayerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
 
@@ -27,6 +29,14 @@ class Player extends User
 
     #[ORM\Column(length: 255)]
     private ?string $username = null;
+
+    #[ORM\ManyToMany(targetEntity: Sport::class, inversedBy: 'players')]
+    private Collection $sports;
+
+    public function __construct()
+    {
+        $this->sports = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -87,5 +97,29 @@ class Player extends User
         $roles = $this->addRole('ROLE_PLAYER', $roles);
 
         return $this->addRole('ROLE_API', $roles);
+    }
+
+    /**
+     * @return Collection<int, Sport>
+     */
+    public function getSports(): Collection
+    {
+        return $this->sports;
+    }
+
+    public function addSport(Sport $sport): self
+    {
+        if (!$this->sports->contains($sport)) {
+            $this->sports->add($sport);
+        }
+
+        return $this;
+    }
+
+    public function removeSport(Sport $sport): self
+    {
+        $this->sports->removeElement($sport);
+
+        return $this;
     }
 }

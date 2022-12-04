@@ -54,10 +54,10 @@ jobs:
     - name: Psalm
       run : ./vendor/bin/psalm
 
-    #- name: Create Database
-    #  run: |
-    #    bin/console doctrine:database:create
-    #    bin/console doctrine:schema:update
+    - name: Create Database
+      run: |
+        bin/console doctrine:database:create
+        bin/console doctrine:schema:update
 
     #- name: Execute tests (Unit and Feature tests) via PHPUnit
     #  run: vendor/bin/phpunit

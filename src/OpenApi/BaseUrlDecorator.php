@@ -16,6 +16,10 @@ class BaseUrlDecorator implements OpenApiFactoryInterface
     {
         $openApi = ($this->decorated)($context);
 
+        if (!isset($_SERVER['SERVER_NAME'])) {
+            return $openApi;
+        }
+
         $servers = $openApi->getServers();
 
         if (count($servers) > 0) {

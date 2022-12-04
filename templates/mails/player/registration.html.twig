@@ -1,0 +1,5 @@
+{% extends "mails/base.html.twig" %}
+
+{% block message %}
+    {{ t('mail.player_registration.body',{'player':player}) }}
+{% endblock %}

@@ -8,7 +8,9 @@ use ApiPlatform\Symfony\Validator\Exception\ValidationException;
 use App\ApiResource\Player\Profile;
 use App\ApiResource\Player\RegisterRequest;
 use App\Entity\Player;
+use App\Event\PlayerRegisteredEvent;
 use App\Repository\UserRepository;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -17,7 +19,8 @@ class UserRegisterProcessor implements ProcessorInterface
     public function __construct(
         protected readonly UserPasswordHasherInterface $hasher,
         protected readonly UserRepository $userRepository,
-        protected readonly ValidatorInterface $validator
+        protected readonly ValidatorInterface $validator,
+        protected readonly EventDispatcherInterface $eventDispatcher
     ) {
     }
 
@@ -42,6 +45,8 @@ class UserRegisterProcessor implements ProcessorInterface
         }
 
         $this->userRepository->save($user, true);
+        $registrationEvent = new PlayerRegisteredEvent($user);
+        $this->eventDispatcher->dispatch($registrationEvent);
 
         return Profile::fromPlayer($user);
     }

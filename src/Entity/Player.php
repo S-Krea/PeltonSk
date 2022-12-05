@@ -122,4 +122,11 @@ class Player extends User
 
         return $this;
     }
+
+    public function resetSports()
+    {
+        foreach ($this->sports as $sport) {
+            $this->removeSport($sport);
+        }
+    }
 }

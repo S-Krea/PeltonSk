@@ -1,0 +1,7 @@
+proxy:
+  domains:
+    - padel
+http:
+  allow_http: true
+  daemon: true
+  use_gzip: true

@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  APP_ENV: test
+  APP_RUNTIME_ENV: test
+
 permissions:
   contents: read
 
@@ -48,16 +52,16 @@ jobs:
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-    #- name: Generate the SSL keys
-    #  run: bin/console lexik:jwt:generate-keypair
+    - name: Generate the SSL keys
+      run: bin/console lexik:jwt:generate-keypair
 
-    #- name: Psalm
-    #  run : ./vendor/bin/psalm
+    - name: Psalm
+      run : ./vendor/bin/psalm
 
-    #- name: Create Database
-    #  run: |
-    #    bin/console doctrine:database:create
-    #    bin/console doctrine:schema:update
+    - name: Create Database
+      run: |
+        bin/console doctrine:database:create
+        bin/console doctrine:schema:update --force
 
     #- name: Execute tests (Unit and Feature tests) via PHPUnit
     #  run: vendor/bin/phpunit

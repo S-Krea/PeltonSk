@@ -1,0 +1,6 @@
+grumphp:
+    ascii: ~
+    tasks:
+        phpcsfixer:
+            config: .php-cs-fixer.dist.php
+            config_contains_finder: true

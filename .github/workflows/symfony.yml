@@ -57,7 +57,7 @@ jobs:
     - name: Create Database
       run: |
         bin/console doctrine:database:create
-        bin/console doctrine:schema:update
+        bin/console doctrine:schema:update --force
 
     #- name: Execute tests (Unit and Feature tests) via PHPUnit
     #  run: vendor/bin/phpunit

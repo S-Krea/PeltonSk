@@ -1,2 +1,9 @@
-mail.player_registration.subject: __mail.player_registration.subject
-mail.player_registration.body: __mail.player_registration.body
+mail:
+  player_registration:
+    subject: "Création de votre compte {app_name}"
+    greetings: "Hello {username}"
+    thanks: | 
+      Merci d'avoir créé ton compte sur {app_name} ! 
+      Plus qu'une petite étape ! Pour pouvoir te connecter tu dois valider ton adresse e-mail en cliquant sur le bouton ci-dessous.
+    button_text: "Activer mon compte"
+    click_link: "Si le bouton n'apparait pas, copiez-collez ce lien dans votre navigateur : {url}"

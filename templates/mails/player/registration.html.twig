@@ -1,5 +1,14 @@
 {% extends "mails/base.html.twig" %}
 
+{% set url = absolute_url(path('app_verify_account', {'token' : player.verificationToken})) %}
+
 {% block message %}
-    {{ t('mail.player_registration.body',{'player':player}) }}
+    <h1>{{ t('mail.player_registration.greetings', {'username': player.username})|trans }}</h1>
+    <p>
+        {{ t('mail.player_registration.thanks', {'app_name' : 'Padel Play'})|trans|raw }}
+    </p>
+    <a href="{{ url }}" target="_blank" class="btn">{{ t('mail.player_registration.button_text')|trans }}</a>
+    <p>
+        {{ t('mail.player_registration.click_link', {'url': url})|trans }}
+    </p>
 {% endblock %}

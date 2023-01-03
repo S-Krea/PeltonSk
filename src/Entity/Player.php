@@ -33,6 +33,18 @@ class Player extends User
     #[ORM\ManyToMany(targetEntity: Sport::class, inversedBy: 'players')]
     private Collection $sports;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $verificationToken = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $resetToken = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $resetAt = null;
+
+    #[ORM\Column]
+    private ?bool $verified = false;
+
     public function __construct()
     {
         $this->sports = new ArrayCollection();
@@ -128,5 +140,58 @@ class Player extends User
         foreach ($this->sports as $sport) {
             $this->removeSport($sport);
         }
+    }
+
+    public function getVerificationToken(): ?string
+    {
+        return $this->verificationToken;
+    }
+
+    public function setVerificationToken(?string $verificationToken): self
+    {
+        $this->verificationToken = $verificationToken;
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+    public function getResetAt(): ?\DateTimeImmutable
+    {
+        return $this->resetAt;
+    }
+
+    public function setResetAt(?\DateTimeImmutable $resetAt): self
+    {
+        $this->resetAt = $resetAt;
+
+        return $this;
+    }
+
+    public function generateVerification()
+    {
+        $this->verificationToken = bin2hex(random_bytes(32));
+    }
+
+    public function isVerified(): ?bool
+    {
+        return $this->verified;
+    }
+
+    public function setVerified(bool $verified): self
+    {
+        $this->verified = $verified;
+
+        return $this;
     }
 }

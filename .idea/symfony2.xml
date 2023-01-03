@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Symfony2PluginSettings">
+    <option name="pathToTranslation" value="translations" />
     <option name="pluginEnabled" value="true" />
+    <option name="routingFiles">
+      <list>
+        <routing_file path="var/cache/dev/url_generating_routes.php" />
+        <routing_file path="var/cache/dev/url_matching_routes.php" />
+      </list>
+    </option>
   </component>
 </project>

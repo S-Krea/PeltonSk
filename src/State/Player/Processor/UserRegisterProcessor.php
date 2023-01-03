@@ -38,6 +38,7 @@ class UserRegisterProcessor implements ProcessorInterface
         $user->setLastName($data->lastname);
         $user->setUsername($data->username);
         $user->setPassword($hashedPassword);
+        $user->generateVerification();
 
         $errors = $this->validator->validate($user);
         if ($errors->count() > 0) {

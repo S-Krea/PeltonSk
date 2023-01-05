@@ -32,14 +32,22 @@ class Profile
         public readonly string $email,
         public readonly string $lastname,
         public readonly string $firstname,
+        public readonly ?string $phone,
         /** @var array<Sport> $sports */
-        public ?array $sports,
+        public ?array $sports
     ) {
     }
 
     public static function fromPlayer(Player $player): self
     {
-        return new Profile($player->getUsername(), $player->getEmail(), $player->getLastName(), $player->getFirstName(), array_values($player->getSports()->toArray()));
+        return new Profile(
+            $player->getUsername(),
+            $player->getEmail(),
+            $player->getLastName(),
+            $player->getFirstName(),
+            $player->getPhoneNumber(),
+            array_values($player->getSports()->toArray())
+        );
     }
 
     public function updateEntity(Player &$player)

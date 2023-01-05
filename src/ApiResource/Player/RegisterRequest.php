@@ -26,7 +26,8 @@ final class RegisterRequest
         #[SecuredPassword]
         public readonly string $password,
         public readonly string $lastname,
-        public readonly string $firstname
+        public readonly string $firstname,
+        public readonly ?string $phoneNumber = null,
     ) {
     }
 }
